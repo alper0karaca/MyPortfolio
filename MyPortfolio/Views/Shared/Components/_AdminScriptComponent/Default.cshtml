@@ -18,10 +18,8 @@
 
 <script>
     // kısa tarihi alma
-    function getDateFromLongDate(date){
-        longDate = date.split('T');
-        
-        var d = new Date(longDate);
+    function getDateFromLongDate(date){  
+        var d = new Date(date);
         day = d.getDate().toString().padStart(2, '0');
         month = (d.getMonth() + 1).toString().padStart(2, '0');
         year = d.getFullYear();
@@ -33,9 +31,9 @@
     
     // sadece saati alma
     function getTimeFromLongTime(time){
-        var longTime = time.split('T');
+        // var longTime = time.split('T');
         
-        var date = new Date(longTime);
+        var date = new Date(time);
         var hour = date.getHours().toString().padStart(2, '0');
         var minute = date.getMinutes().toString().padStart(2, '0');
         

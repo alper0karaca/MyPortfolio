@@ -15,8 +15,7 @@ namespace MyPortfolio.Controllers
         {
             ViewBag.v1 = "Message";
             ViewBag.v2 = "Inbox";
-            var values = messageManager.TGetList();
-            return View(values);
+            return View();
         }
 
         // alper yeni mesaj listesi yazımı

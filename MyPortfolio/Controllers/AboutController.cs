@@ -1,6 +1,8 @@
+using System.Net;
 using Business.Concretes;
 using DataAccessLayer.Concretes;
 using Entities;
+using Entities.VM;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MyPortfolio.Controllers
@@ -12,20 +14,28 @@ namespace MyPortfolio.Controllers
         {
             ViewBag.v1 = "About";
             ViewBag.v2 = "Index";
-            var values = aboutManager.TGetList();
-            return View(values);
+            
+            return View();
+        }
+
+        public IActionResult GetAbout()
+        {
+            // burada about için VM oluştur onu döndür
+            
+            var value = aboutManager.TGetAbout();
+            // normalde burda Enumstan gelen status değeri başarılı durumu kontrol edilir.
+            var about = new AboutVM()
+            {
+                AboutId = value.AboutId,
+                Title = value.Title,
+                SubDescription = value.SubDescription,
+                Details = value.Details,
+            };
+
+            return Json(new { Code = HttpStatusCode.OK, about});
         }
         
-        [HttpGet]
-        public IActionResult EditAbout(int id)
-        {
-            ViewBag.v1 = "About";
-            ViewBag.v2 = "Edit About";
-
-            var values = aboutManager.TGetById(id);
-            return View(values);
-        }
-
+        // about güncellemesi için 
         [HttpPost]
         public IActionResult EditAbout(About about)
         {

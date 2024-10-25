@@ -133,8 +133,8 @@
                 }
                 
             },
-            error: function (xhr, status, error){
-                console.error("Mesajlar yüklenemedi:", status, error);
+            error: function (error){
+                console.error("Mesajlar yüklenemedi:", error);
                 alert("Mesajlar yüklenemedi: " + error);
             } 
             

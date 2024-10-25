@@ -24,6 +24,16 @@ public class AboutManager : IAboutService
         return values;
     }
 
+    
+    public About TGetAbout()
+    {
+        // burda veritabanı dal katmanında tek veriyi getirecek olan fonk tanımlanacak.
+
+        var about = _aboutDal.GetAbout();
+        return about;
+
+    }
+
     public void TUpdate(About entity)
     {
         
@@ -40,4 +50,5 @@ public class AboutManager : IAboutService
         var value = _aboutDal.GetById(id);
         return value;
     }
+    
 }

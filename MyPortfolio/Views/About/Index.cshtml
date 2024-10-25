@@ -1,5 +1,4 @@
 ﻿@using Entities
-@model List<About>
 @{
     ViewData["Title"] = "Index";
     Layout = "_AdminLayout";
@@ -7,32 +6,20 @@
 
 <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
-        <div class="card-body">
+        <div class="card-body bg-primary">
             <h4 class="card-title">About List</h4>
 
             <div class="table-responsive">
-                <table class="table">
+                <table class="table" id="aboutTable">
                     <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Title</th>
-                        <th>SubDescription</th>
-                        <th>Details</th>
+                        <th scope="col-sm-1">#</th>
+                        <th scope="col-sm-3">Title</th>
+                        <th scope="col-sm-1">SubDescription</th>
+                        <th scope="col-sm-7">Details</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>@item.AboutId</td>
-                            <td>@item.Title</td>
-                            <td>@item.SubDescription</td>
-                            <td>@item.Details</td>
-                        </tr>
-                        <td>
-                            <a href="/About/EditAbout/@item.AboutId" class="btn btn-outline-warning">Update</a>
-                        </td>
-                    }
                     </tbody>
                 </table>
             </div>
@@ -40,6 +27,60 @@
     </div>
 </div>
 
-<!-- Mesaj bildirimleri hatası için _NewAdminLayout'da yorum satırına aldım -->
+<script src="~/lib/jquery/jquery-3.7.1.min.js"></script>
 
-<script src="~/corona-free-dark-bootstrap-admin-template-1.0.0/template/assets/vendors/js/vendor.bundle.base.js"></script>
+<script>
+    var about = null;
+    $(document).ready( function (){
+        $("#aboutTable").DataTable({
+            "dom": "Tit",
+            columnDefs: [{
+                "defaultContent": "*",
+                "targets":"_all"
+            }],
+            "responsive": true,
+            "languages": {
+                "emptyTable": "Gösterilecek veri yok",
+                "processing": "Veriler yükleniyor",
+                "sInfo": "<span class='text-white'>_TOTAL_ kayıttan _START_-_END_ arasındaki kayıtlar gösteriliyor</span>",
+                "sLoadingRecords": "Yükleniyor...",
+                "sZeroRecords": "Eşleşen Kayıt bulunamadı",
+                "oAria": {
+                    "sSortAscending": ": artan sütun sıralamasını aktifleştir",
+                    "sSortDescending": ": azalan sütun sıralamasını aktifleştir"
+                }
+            },
+            
+        });
+        refreshTable();
+        
+    })
+    
+</script>
+
+<script>
+    
+    function refreshTable(){
+        // controller tarafı bitti viewda about entity si gösterilmesi kaldı.
+        $.ajax({
+            url: "@Url.Action("GetAbout","About")",
+            type: 'GET',
+            success: function (item){
+                var table = $("#aboutTable").DataTable();
+                about = item.about;
+                var rows = table.row.add([
+                    item.about.aboutId,
+                    item.about.title,
+                    item.about.subDescription,
+                    item.about.details,
+                ]).draw();
+            },
+            error: function (error) {
+                alert("There was an error updating data "+error);
+                
+            }
+        })
+        
+    }
+    
+</script>
