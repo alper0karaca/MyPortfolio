@@ -123,6 +123,9 @@
     
     // modal açma fonk
     function openModal(){
+    
+        setModal(about)
+        
         $("#about-modal").modal('show');
     }
     
@@ -142,9 +145,10 @@
     // modal ayarlama
     function setModal(data){
         // element içlerine gelen veriyi ayarlıcam
-        $("#feature-modal #featureId").val(data.featureId);
-        $("#feature-modal #featureTitle").val(data.title);
-        $("#feature-modal #featureDescription").val(data.description);
+        $("#about-modal #aboutId").val(data.aboutId);
+        $("#about-modal #aboutTitle").val(data.title);
+        $("#about-modal #aboutSubDescription").val(data.subDescription);
+        $("#about-modal #aboutDetails").val(data.details);
     }
     
     
