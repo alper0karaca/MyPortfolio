@@ -35,16 +35,17 @@ namespace MyPortfolio.Controllers
             return Json(new { Code = HttpStatusCode.OK, about});
         }
         
+        
+        
         // about güncellemesi için 
         [HttpPost]
         public IActionResult EditAbout(About about)
         {
-            if (string.IsNullOrEmpty(about.SubDescription))
-            {
-                about.SubDescription = null;
-            }
+            
             aboutManager.TUpdate(about);
-            return RedirectToAction("Index");
+
+            string message = "Updated Successfully";
+            return Json(new {Code = HttpStatusCode.OK, message });
         }
         
     }
