@@ -12,10 +12,10 @@
                 <table class="table" id="aboutTable">
                     <thead>
                     <tr>
-                        <th scope="col-sm-1">#</th>
+                        <th scope="col-sm-3">#</th>
                         <th scope="col-sm-3">Title</th>
-                        <th scope="col-sm-1">SubDescription</th>
-                        <th scope="col-sm-7">Details</th>
+                        <th scope="col-sm-3">SubDescription</th>
+                        <th scope="col-sm-3">Update</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -25,6 +25,43 @@
         </div>
     </div>
 </div>
+
+@*modal *@
+
+<div class="modal fade" id="about-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h5 class="modal-title" id="exampleModalLabel">Edit About</h5>
+                <button onclick="closeModal()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body bg-default">
+                <form>
+                    <div class="form-group">
+                        <label for="aboutTitle" class="col-form-label">Title:</label>
+                        <input hidden type="text" class="form-control" id="aboutId">
+                        <input type="text" class="form-control" id="aboutTitle">
+                    </div>
+                    <div class="form-group">
+                        <label for="aboutSubDescription" class="col-form-label">SubDescription:</label>
+                        <input type="text" class="form-control" id="aboutSubDescription">
+                    </div>
+                    <div class="form-group">
+                        <label for="aboutDetails" class="col-form-label">Details:</label>
+                        <textarea rows="10" class="form-control" id="aboutDetails"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button onclick="closeModal()" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button onclick="updateFeature(this)" data-id="" type="button" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <script src="~/lib/jquery/jquery-3.7.1.min.js"></script>
 
@@ -71,7 +108,7 @@
                     item.about.aboutId,
                     item.about.title,
                     item.about.subDescription,
-                    item.about.details,
+                    '<button onclick="openModal(this)" data-id="'+item.about.id+'" class="btn btn-danger">Update</button>',
                 ]).draw();
             },
             error: function (error) {
@@ -85,9 +122,30 @@
     // güncelleme fonk
     
     // modal açma fonk
+    function openModal(){
+        $("#about-modal").modal('show');
+    }
     
     //Modal kapama fonk
-    
+    function closeModal(){
+        $("#about-modal").modal('hide');
+    }
+
     // modal temizleme 
+    function clearModal(){
+        $("#about-modal #aboutId").val("");
+        $("#about-modal #aboutTitle").val("");
+        $("#about-modal #aboutSubDescription").val("");
+        $("#about-modal #aboutDetails").val("");
+    }
+
+    // modal ayarlama
+    function setModal(data){
+        // element içlerine gelen veriyi ayarlıcam
+        $("#feature-modal #featureId").val(data.featureId);
+        $("#feature-modal #featureTitle").val(data.title);
+        $("#feature-modal #featureDescription").val(data.description);
+    }
+    
     
 </script>
