@@ -56,7 +56,7 @@
             </div>
             <div class="modal-footer">
                 <button onclick="closeModal()" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button onclick="updateFeature(this)" data-id="" type="button" class="btn btn-primary">Save</button>
+                <button onclick="updateAbout(this)" type="button" class="btn btn-primary">Save</button>
             </div>
         </div>
     </div>
@@ -104,6 +104,7 @@
             success: function (item){
                 var table = $("#aboutTable").DataTable();
                 about = item.about;
+                table.clear().draw();
                 var rows = table.row.add([
                     item.about.aboutId,
                     item.about.title,
@@ -120,6 +121,35 @@
     }
     
     // güncelleme fonk
+    function updateAbout(){
+        var aboutId = $("#about-modal #aboutId").val();
+        var aboutTitle = $("#about-modal #aboutTitle").val();
+        var aboutSubDescription = $("#about-modal #aboutSubDescription").val();
+        var aboutDetails= $("#about-modal #aboutDetails").val();
+        
+        let About = {
+            AboutId : aboutId,
+            Title : aboutTitle,
+            SubDescription : aboutSubDescription,
+            Details : aboutDetails
+        }
+        
+        $.ajax({
+            url: "@Url.Action("EditAbout", "About")",
+            type: 'POST',
+            data: { 'about' : About},
+            success : function (item){
+                refreshTable();
+                closeModal();
+            },
+            error: function (error){
+                alert("Unexpected error "+error);
+            }
+            
+        })
+        
+    }
+    
     
     // modal açma fonk
     function openModal(){
