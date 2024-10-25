@@ -1,6 +1,8 @@
+using System.Net;
 using Business.Concretes;
 using DataAccessLayer.Concretes;
 using Entities;
+using Entities.VM;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MyPortfolio.Controllers
@@ -14,8 +16,7 @@ namespace MyPortfolio.Controllers
             ViewBag.v1 = "Experience";
             ViewBag.v2 = "Index";
             
-            var values = experienceManager.TGetList();
-            return View(values);
+            return View();
         }
         
         [HttpGet]
@@ -26,36 +27,48 @@ namespace MyPortfolio.Controllers
             
             return View();
         }
-        
+
+        public IActionResult GetListExperience()
+        {
+            var experienceList = new List<ExperienceVM>();
+            var values = experienceManager.TGetList();
+
+            foreach (var experience in values)
+            {
+                var experienceModal = new ExperienceVM()
+                {
+                    ExperienceId = experience.ExperienceId,
+                    Head = experience.Head,
+                    Title = experience.Title,
+                    Date = experience.Date,
+                    Description = experience.Description,
+                };
+                experienceList.Add(experienceModal);
+            }
+
+            return Ok(new { Code = HttpStatusCode.OK, experienceList });
+        }
+
         [HttpPost]
         public IActionResult AddExperience(Experience experience)
         {
             experienceManager.TAdd(experience);
-            return RedirectToAction("Index");
+            return Ok( new {Code = HttpStatusCode.OK, Message = "Experience Added Successfully"});
         }
         
-        [HttpGet]
-        public IActionResult EditExperience(int id)
-        {
-            ViewBag.v1 = "Experience";
-            ViewBag.v2 = "Edit Experience";
-            
-            var values = experienceManager.TGetById(id);
-            return View(values);
-        }
-
         [HttpPost]
-        public IActionResult EditExperience(Experience experience)
+        public IActionResult UpdateExperience(Experience experience)
         {
             experienceManager.TUpdate(experience);
-            return RedirectToAction("Index");
+            return Ok( new {Code = HttpStatusCode.OK, Message = "Experience Updated"});
+            
         }
         
         public IActionResult DeleteExperience(int id)
         {
             var values = experienceManager.TGetById(id);
             experienceManager.TDelete(values);
-            return RedirectToAction("Index");
+            return Ok( new {Code = HttpStatusCode.OK, Message = "Experience Deleted"});
 
         }
 

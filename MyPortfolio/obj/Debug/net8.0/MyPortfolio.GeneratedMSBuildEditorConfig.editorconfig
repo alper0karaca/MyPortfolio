@@ -26,10 +26,6 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = /Users/alperkaraca/RiderProjects/MyPortfolio/MyPortfolio
 build_property._RazorSourceGeneratorDebug = 
 
-[/Users/alperkaraca/RiderProjects/MyPortfolio/MyPortfolio/Views/About/EditAbout.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWJvdXQvRWRpdEFib3V0LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
 [/Users/alperkaraca/RiderProjects/MyPortfolio/MyPortfolio/Views/About/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWJvdXQvSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -40,14 +36,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/Users/alperkaraca/RiderProjects/MyPortfolio/MyPortfolio/Views/Default/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGVmYXVsdC9JbmRleC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/alperkaraca/RiderProjects/MyPortfolio/MyPortfolio/Views/Experience/AddExperience.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRXhwZXJpZW5jZS9BZGRFeHBlcmllbmNlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/alperkaraca/RiderProjects/MyPortfolio/MyPortfolio/Views/Experience/EditExperience.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRXhwZXJpZW5jZS9FZGl0RXhwZXJpZW5jZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/alperkaraca/RiderProjects/MyPortfolio/MyPortfolio/Views/Experience/Index.cshtml]
@@ -72,14 +60,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/Users/alperkaraca/RiderProjects/MyPortfolio/MyPortfolio/Views/Message/Inbox.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTWVzc2FnZS9JbmJveC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/alperkaraca/RiderProjects/MyPortfolio/MyPortfolio/Views/Portfolio/AddPortfolio.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUG9ydGZvbGlvL0FkZFBvcnRmb2xpby5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[/Users/alperkaraca/RiderProjects/MyPortfolio/MyPortfolio/Views/Portfolio/EditPortfolio.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUG9ydGZvbGlvL0VkaXRQb3J0Zm9saW8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/alperkaraca/RiderProjects/MyPortfolio/MyPortfolio/Views/Portfolio/Index.cshtml]

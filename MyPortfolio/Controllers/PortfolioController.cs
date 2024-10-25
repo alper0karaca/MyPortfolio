@@ -1,6 +1,8 @@
+using System.Net;
 using Business.Concretes;
 using DataAccessLayer.Concretes;
 using Entities;
+using Entities.VM;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MyPortfolio.Controllers
@@ -12,20 +14,39 @@ namespace MyPortfolio.Controllers
         // GET: PortfolioController
         public ActionResult Index()
         {
-            var values = portfolioManager.TGetList();
+            
             ViewBag.v1 = "Portfolio";
             ViewBag.v2 = "Index";
-            return View(values);
-        }
-
-        [HttpGet]
-        public IActionResult AddPortfolio()
-        {
-            ViewBag.v1 = "Portfolio";
-            ViewBag.v2 = "Add Portfolio";
             
             return View();
         }
+
+        
+        [HttpGet]
+        public IActionResult GetListPortfolio()
+        {
+            var portfolioList = new List<PortfolioVM>();
+
+            var values = portfolioManager.TGetList();
+
+            foreach (var portfolio in values)
+            {
+                var portfolioModel = new PortfolioVM()
+                {
+                    PortfolioId = portfolio.PortfolioId,
+                    Title = portfolio.Title,
+                    SubTitle = portfolio.SubTitle,
+                    ImageUrl = portfolio.ImageUrl,
+                    Url = portfolio.Url,
+                    Description = portfolio.Description,
+                    
+                };
+                portfolioList.Add(portfolioModel);
+            }
+            
+            return Ok( new { Code = HttpStatusCode.OK, portfolioList});
+        }
+        
         [HttpPost]
         public IActionResult AddPortfolio(Portfolio portfolio)
         {
@@ -33,29 +54,24 @@ namespace MyPortfolio.Controllers
             return RedirectToAction("Index");
         }
         
-        [HttpGet]
-        public IActionResult EditPortfolio(int id)
-        {
-            ViewBag.v1 = "Portfolio";
-            ViewBag.v2 = "Edit Portfolio";
-
-            var value = portfolioManager.TGetById(id);
-            
-            return View(value);
-        }
+      
         [HttpPost]
-        public IActionResult EditPortfolio(Portfolio portfolio)
+        public IActionResult UpdatePortfolio(Portfolio portfolio)
         {
             
             portfolioManager.TUpdate(portfolio);
-            return RedirectToAction("Index");
+            
+            string message = "Portfolio saved successfully";
+            return Ok( new { Code = HttpStatusCode.OK, message});
         }
 
         public IActionResult DeletePortfolio(int id)
         {
             var value = portfolioManager.TGetById(id);
             portfolioManager.TDelete(value);
-            return RedirectToAction("Index");   
+            
+            string message = "Portfolio deleted successfully";
+            return Ok( new { Code = HttpStatusCode.OK, message});   
         }
 
 

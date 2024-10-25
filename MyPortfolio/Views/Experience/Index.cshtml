@@ -1,6 +1,4 @@
-﻿@using Entities
-@model List<Experience>
-@{
+﻿@{
     ViewData["Title"] = "Index";
     Layout = "_AdminLayout";
 }
@@ -11,41 +9,228 @@
             <h4 class="card-title">Experience List</h4>
 
             <div class="table-responsive">
-                <table class="table">
+                <table class="table" id="experienceTable">
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>Kurum İsmi</th>
-                        <th>Rol</th>
-                        <th>Tarih</th>
+                        <th>Company Name</th>
+                        <th>Role</th>
+                        <th>Date</th>
+                        <th>Delete</th>
+                        <th>Update</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>@item.ExperienceId</td>
-                            <td>@item.Head</td>
-                            <td>@item.Title</td>
-                            <td>@item.Date</td>
-                            <td>
-                                <a href="/Experience/DeleteExperience/@item.ExperienceId" class="btn btn-outline-danger">Delete</a>
-                            </td>
-                            <td>
-                                <a href="/Experience/EditExperience/@item.ExperienceId" class="btn btn-outline-warning">Update</a>
-                            </td>
-                            
-                        </tr>
-                    }
 
                     </tbody>
                 </table>
-                <a href="/Experience/AddExperience" class="btn btn-outline-success">New Add Experience</a>
+                <br/>
+                <button onclick="openModal(this)" data-id="" class="btn btn-outline-success">New Add Experience</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Mesaj bildirimleri hatası için _NewAdminLayout'da yorum satırına aldım -->
+@* Deneyim detayları için modal *@
+<div class="modal fade" id="experience-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h1 class="modal-title fs-5" id="modalTitle">Experience Detail</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <label for="experienceHead" class="col-form-label">Head:</label>
+                            <input hidden type="text" class="form-control" id="experienceId">
+                            <input type="text" class="form-control bg-gradient-secondary" id="experienceHead">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <label for="experienceTitle" class="col-form-label">Title:</label>
+                            <textarea rows="6" class="form-control" id="experienceTitle"></textarea>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="experienceDate" class="col-form-label">Date:</label>
+                            <textarea rows="6" class="form-control" id="experienceDate"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <label for="experienceDescription" class="col-form-label">Description:</label>
+                            <textarea rows="10" class="form-control" id="experienceDescription"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button onclick="closeModal()" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button onclick="updateExperience()" type="button" class="btn btn-success" data-bs-dismiss="modal">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-<script src="~/corona-free-dark-bootstrap-admin-template-1.0.0/template/assets/vendors/js/vendor.bundle.base.js"></script>
+
+<script src="~/lib/jquery/jquery-3.7.1.min.js"></script>
+
+<script>
+    var experienceList = null;
+    
+    $(document).ready( function (){
+        $("#experienceTable").DataTable({
+            "dom": "Tit",
+            columnDefs : [{
+                "defaultContent" : "*",
+                "targets":"_all",
+            }],
+            "responsive": true,
+            "language": {
+                "emptyTable": "Gösterilecek veri yok",
+                "processing": "Veriler yükleniyor",
+                "sInfo": "<span class='text-white'>_TOTAL_ kayıttan _START_-_END_ arasındaki kayıtlar gösteriliyor</span>",
+                "sLoadingRecords": "Yükleniyor...",
+                "sZeroRecords": "Eşleşen Kayıt bulunamadı",
+                "oAria": {
+                    "sSortAscending": ": artan sütun sıralamasını aktifleştir",
+                    "sSortDescending": ": azalan sütun sıralamasını aktifleştir"
+                },
+            }
+            
+        });
+        refreshTable();        
+    });
+    
+    function refreshTable(){
+        $.ajax({
+            url: "@Url.Action("GetListExperience", "Experience")",
+            type: "GET",
+            success: function (item){
+                if (item.code == 200){
+                    var table = $("#experienceTable").DataTable();
+                    experienceList = item.experienceList;
+                    table.clear().draw();
+                    item.experienceList.forEach( function (value) {
+
+                    var rows = table.row.add([
+                        value.experienceId,
+                        value.head,
+                        value.title, 
+                        value.date,
+                        '<button onclick="openModal(this)" data-id="'+value.experienceId+'" class="btn btn-success">Update</button>',
+                        '<button onclick="deleteExperience(this)" data-id="'+value.experienceId+'" class="btn btn-danger">Delete</button>',
+                    ]).draw();
+                    
+                    })
+                                      
+                }
+            }
+            
+        })
+    }
+    
+    // güncelleme
+    function updateExperience(){
+        var experienceId = $("#experience-modal #experienceId").val();
+        var experienceHead = $("#experience-modal #experienceHead").val();
+        var experienceTitle = $("#experience-modal #experienceTitle").val();
+        var experienceDate = $("#experience-modal #experienceDate").val();
+        var experienceDescription = $("#experience-modal #experienceDescription").val();
+
+        let Experience = {
+            ExperienceId: experienceId,
+            Head: experienceHead,
+            Title: experienceTitle,
+            Date: experienceDate,
+            Description: experienceDescription
+        }
+        $.ajax({
+            url: "@Url.Action("UpdateExperience","Experience")",
+            type: 'POST',
+            data: { 'experience' : Experience },
+            success: function (item) {
+                if (item.code == 200) {
+                    // toastr 
+                    refreshTable();
+                    closeModal();
+                }
+            },
+            error: function (item){
+                // toastr
+            }
+            
+            
+        });  
+    }
+    
+    // add
+    function addExperience(){
+        
+    }
+        
+    // delete
+    function deleteExperience(value){
+        var id = value.dataset.id;
+        $.ajax({
+            url: "@Url.Action("DeleteExperience","Experience")",
+            type: "GET",
+            data: { 'id' : id },
+            success: function (item){
+                refreshTable();
+            }
+            
+        })
+        
+        
+    }
+    
+    
+    function openModal(value){
+        // burda butondan gelen id değerini alıp sonra bu id yi 
+        var id = value.dataset.id; 
+        
+        if (id == 0) {
+            clearModal();
+            $("#modalTitle").text("Add Experience");
+        }
+        if (id != 0){
+            // experienceList değişkeninde ara idi si eşit olanı ver set e ayarlasın
+            var about = experienceList.filter(function (item){
+                return item.experienceId == id;
+            })
+            setModal(about[0])
+        }
+        
+        $("#experience-modal").modal('show');
+    }
+
+    // modal kapama
+    function closeModal(){
+        $("#experience-modal").modal('hide');
+    }
+
+    // boş modal için
+    function clearModal(){
+        $("#experience-modal #experienceId").val("");
+        $("#experience-modal #experienceHead").val("");
+        $("#experience-modal #experienceTitle").val("");
+        $("#experience-modal #experienceDate").val("");
+        $("#experience-modal #experienceDescription").val("");
+    }
+
+    function setModal(data){
+        // element içlerine gelen veriyi ayarlıcam
+        $("#experience-modal #experienceId").val(data.experienceId);
+        $("#experience-modal #experienceHead").val(data.head);
+        $("#experience-modal #experienceTitle").val(data.title);
+        $("#experience-modal #experienceDate").val(data.date);
+        $("#experience-modal #experienceDescription").val(data.description);
+    }
+
+        
+
+
+</script>

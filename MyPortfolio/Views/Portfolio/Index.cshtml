@@ -1,6 +1,4 @@
-﻿@using Entities
-@model List<Portfolio>
-@{
+﻿@{
     ViewData["Title"] = "Index";
     Layout = "_AdminLayout";
 }
@@ -11,46 +9,229 @@
             <h4 class="card-title">Portfolio List</h4>
 
             <div class="table-responsive">
-                <table class="table">
+                <table class="table" id="portfolioTable">
                     <thead>
                     <tr>
                         <th>#</th>
                         <th>Title</th>
                         <th>SubTitle</th>
-                        <th>ImageUrl</th>
-                        <th>Url</th>
-                        <th>Description</th>
+                        <th>Update</th>
+                        <th>Delete</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>@item.PortfolioId</td>
-                            <td>@item.Title</td>
-                            <td>@item.SubTitle</td>
-                            <td>@item.ImageUrl</td>
-                            <td>@item.Url</td>
-                            <td>@item.Description</td>
-                            <td>
-                                <a href="/Portfolio/DeletePortfolio/@item.PortfolioId" class="btn btn-outline-danger">Delete</a>
-                            </td>
-                            <td>
-                                <a href="/Portfolio/EditPortfolio/@item.PortfolioId" class="btn btn-outline-warning">Update</a>
-                            </td>
-                            
-                        </tr>
-                    }
 
                     </tbody>
                 </table>
             </div>
             <br>
-            <a href="/Portfolio/AddPortfolio" class="btn btn-outline-success">New Add Portfolio</a>
+            <a onclick="openModal(this)" data-id="" class="btn btn-outline-success">New Add Portfolio</a>
         </div>
     </div>
 </div>
 
-<!-- Mesaj bildirimleri hatası için _NewAdminLayout'da yorum satırına aldım -->
+@* potfolio detayları için modal *@
+<div class="modal fade" id="portfolio-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h1 class="modal-title fs-5" id="modalTitle">Portfolio Detail</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <label for="portfolioTitle" class="col-form-label">Title:</label>
+                            <input hidden type="text" class="form-control" id="portfolioId">
+                            <input type="text" class="form-control bg-gradient-secondary" id="portfolioTitle">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <label for="portfolioSubTitle" class="col-form-label">SubTitle:</label>
+                            <textarea rows="6" class="form-control" id="portfolioSubTitle"></textarea>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="portfolioImageUrl" class="col-form-label">ImageUrl:</label>
+                            <textarea rows="6" class="form-control" id="portfolioImageUrl"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                            <label for="portfolioUrl" class="col-form-label">Url:</label>
+                            <textarea rows="10" class="form-control" id="portfolioUrl"></textarea>
+                        </div>
 
-<script src="~/corona-free-dark-bootstrap-admin-template-1.0.0/template/assets/vendors/js/vendor.bundle.base.js"></script>
+                        <div class="col-6 mb-3">
+                            <label for="portfolioDescription" class="col-form-label">Description:</label>
+                            <textarea rows="10" class="form-control" id="portfolioDescription"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button onclick="closeModal()" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button onclick="updatePortfolio()" type="button" class="btn btn-success" data-bs-dismiss="modal">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery/jquery-3.7.1.min.js"></script>
+
+<script>
+    var portfolioList = null;
+
+    $(document).ready( function (){
+        $("#portfolioTable").DataTable({
+            "dom": "Tit",
+            columnDefs : [{
+                "defaultContent" : "*",
+                "targets":"_all",
+            }],
+            "responsive": true,
+            "language": {
+                "emptyTable": "Gösterilecek veri yok",
+                "processing": "Veriler yükleniyor",
+                "sInfo": "<span class='text-white'>_TOTAL_ kayıttan _START_-_END_ arasındaki kayıtlar gösteriliyor</span>",
+                "sLoadingRecords": "Yükleniyor...",
+                "sZeroRecords": "Eşleşen Kayıt bulunamadı",
+                "oAria": {
+                    "sSortAscending": ": artan sütun sıralamasını aktifleştir",
+                    "sSortDescending": ": azalan sütun sıralamasını aktifleştir"
+                },
+            }
+
+        });
+        refreshTable();
+    });
+
+    function refreshTable(){
+        $.ajax({
+            url: "@Url.Action("GetListPortfolio", "Portfolio")",
+            type: "GET",
+            success: function (item){
+                if (item.code == 200){
+                    var table = $("#portfolioTable").DataTable();
+                    portfolioList = item.portfolioList;
+                    table.clear().draw();
+                    item.portfolioList.forEach( function (value) {
+
+                        var rows = table.row.add([
+                            value.portfolioId,
+                            value.title,
+                            value.subTitle,
+                            '<button onclick="openModal(this)" data-id="'+value.portfolioId+'" class="btn btn-success">Update</button>',
+                            '<button onclick="deletePortfolio(this)" data-id="'+value.portfolioId+'" class="btn btn-danger">Delete</button>',
+                        ]).draw();
+
+                    })
+
+                }
+            }
+
+        })
+    }
+
+    // güncelleme
+    function updatePortfolio(){
+        var portfolioId = $("#portfolio-modal #portfolioId").val();
+        var portfolioTitle = $("#portfolio-modal #portfolioTitle").val();
+        var portfolioSubTitle = $("#portfolio-modal #portfolioSubTitle").val();
+        var portfolioImageUrl = $("#portfolio-modal #portfolioImageUrl").val();
+        var portfolioUrl = $("#portfolio-modal #portfolioUrl").val();
+        var portfolioDescription = $("#portfolio-modal #portfolioDescription").val();
+
+        let Portfolio = {
+            PortfolioId: portfolioId,
+            Title: portfolioTitle,
+            SubTitle: portfolioSubTitle,
+            ImageUrl: portfolioImageUrl,
+            Url : portfolioUrl,
+            Description: portfolioDescription
+        }
+        $.ajax({
+            url: "@Url.Action("UpdatePortfolio", "Portfolio")",
+            type: 'POST',
+            data: { 'portfolio' : Portfolio },
+            success: function (item) {
+                if (item.code == 200) {
+                    // toastr 
+                    refreshTable();
+                    closeModal();
+                }
+            },
+            error: function (item){
+                // toastr
+            }
+        });
+    }
+
+    // add
+    function addPortfolio(){
+
+    }
+
+    // delete
+    function deletePortfolio(value){
+        var id = value.dataset.id;
+        $.ajax({
+            url: "@Url.Action("DeletePortfolio", "Portfolio")",
+            type: "GET",
+            data: { 'id' : id },
+            success: function (item){
+                refreshTable();
+            }
+        })
+    }
+
+
+    function openModal(value){
+        // burda butondan gelen id değerini alıp sonra bu id yi 
+        var id = value.dataset.id;
+
+        if (id == 0) {
+            clearModal();
+            $("#modalTitle").text("Add Portfolio");
+        }
+        if (id != 0){
+            // experienceList değişkeninde ara idi si eşit olanı ver set e ayarlasın
+            var portfolio = portfolioList.filter(function (item){
+                return item.portfolioId == id;
+            })
+            setModal(portfolio[0])
+        }
+
+        $("#portfolio-modal").modal('show');
+    }
+
+    // modal kapama
+    function closeModal(){
+        $("#portfolio-modal").modal('hide');
+    }
+
+    // boş modal için
+    function clearModal(){
+        $("#portfolio-modal #portfolioId").val("");
+        $("#portfolio-modal #portfolioTitle").val("");
+        $("#portfolio-modal #portfolioSubTitle").val("");
+        $("#portfolio-modal #portfolioImageUrl").val("");
+        $("#portfolio-modal #portfolioUrl").val("");
+        $("#portfolio-modal #portfolioDescription").val("");
+    }
+
+    function setModal(data){
+        // element içlerine gelen veriyi ayarlıcam
+        $("#portfolio-modal #portfolioId").val(data.portfolioId);
+        $("#portfolio-modal #portfolioTitle").val(data.title);
+        $("#portfolio-modal #portfolioSubTitle").val(data.subTitle);
+        $("#portfolio-modal #portfolioImageUrl").val(data.imageUrl);
+        $("#portfolio-modal #portfolioUrl").val(data.url);
+        $("#portfolio-modal #portfolioDescription").val(data.description);
+    }
+
+
+
+
+</script>
