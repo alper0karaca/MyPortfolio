@@ -5,7 +5,7 @@
 
 <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
-        <div class="card-body bg-primary">
+        <div class="card-body" style="background-color: #185d8c">
             <h4 class="card-title">About List</h4>
 
             <div class="table-responsive">
@@ -56,7 +56,7 @@
             </div>
             <div class="modal-footer">
                 <button onclick="closeModal()" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button onclick="updateAbout(this)" type="button" class="btn btn-primary">Save</button>
+                <button onclick="updateAbout(this)" type="button" class="btn btn-success">Save</button>
             </div>
         </div>
     </div>
@@ -109,7 +109,7 @@
                     item.about.aboutId,
                     item.about.title,
                     item.about.subDescription,
-                    '<button onclick="openModal(this)" data-id="'+item.about.id+'" class="btn btn-danger">Update</button>',
+                    '<button onclick="openModal(this)" data-id="'+item.about.id+'" class="btn btn-success">Update</button>',
                 ]).draw();
             },
             error: function (error) {
