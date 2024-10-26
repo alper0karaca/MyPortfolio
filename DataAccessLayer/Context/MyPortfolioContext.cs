@@ -8,6 +8,8 @@ public class MyPortfolioContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
+        //var connectionString = "server=104.247.167.130; port=3306; user=alperka4_alper0karaca; password=Macbook/M2; database=alperka4_MyPortfolioDb;";
+        // local için
         var connectionString = "server=localhost; port=3306; user=root; database=MyPortfolioDb;";
         
         var serverVersion = new MySqlServerVersion(new Version(8, 0, 21));

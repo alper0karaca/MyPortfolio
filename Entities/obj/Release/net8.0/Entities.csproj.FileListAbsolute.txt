@@ -1,0 +1,15 @@
+/Users/alperkaraca/RiderProjects/MyPortfolio/Entities/bin/Release/net8.0/Entities.deps.json
+/Users/alperkaraca/RiderProjects/MyPortfolio/Entities/bin/Release/net8.0/Entities.runtimeconfig.json
+/Users/alperkaraca/RiderProjects/MyPortfolio/Entities/bin/Release/net8.0/Entities.dll
+/Users/alperkaraca/RiderProjects/MyPortfolio/Entities/bin/Release/net8.0/Entities.pdb
+/Users/alperkaraca/RiderProjects/MyPortfolio/Entities/obj/Release/net8.0/Entities.csproj.AssemblyReference.cache
+/Users/alperkaraca/RiderProjects/MyPortfolio/Entities/obj/Release/net8.0/Entities.GeneratedMSBuildEditorConfig.editorconfig
+/Users/alperkaraca/RiderProjects/MyPortfolio/Entities/obj/Release/net8.0/Entities.AssemblyInfoInputs.cache
+/Users/alperkaraca/RiderProjects/MyPortfolio/Entities/obj/Release/net8.0/Entities.AssemblyInfo.cs
+/Users/alperkaraca/RiderProjects/MyPortfolio/Entities/obj/Release/net8.0/Entities.csproj.CoreCompileInputs.cache
+/Users/alperkaraca/RiderProjects/MyPortfolio/Entities/obj/Release/net8.0/Entities.sourcelink.json
+/Users/alperkaraca/RiderProjects/MyPortfolio/Entities/obj/Release/net8.0/Entities.dll
+/Users/alperkaraca/RiderProjects/MyPortfolio/Entities/obj/Release/net8.0/refint/Entities.dll
+/Users/alperkaraca/RiderProjects/MyPortfolio/Entities/obj/Release/net8.0/Entities.pdb
+/Users/alperkaraca/RiderProjects/MyPortfolio/Entities/obj/Release/net8.0/Entities.genruntimeconfig.cache
+/Users/alperkaraca/RiderProjects/MyPortfolio/Entities/obj/Release/net8.0/ref/Entities.dll

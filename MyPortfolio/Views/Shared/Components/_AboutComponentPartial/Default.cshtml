@@ -12,11 +12,10 @@
 
         <div class="col-six tab-full left">
             <h3>Who am I ?</h3>
-            <p>@ViewBag.aboutDescription</p>
+            <p>@ViewBag.aboutDetails</p>
         </div>
 
-       @await Component.InvokeAsync("_SkillComponentPartial")
-
+        @await Component.InvokeAsync("_SkillComponentPartial")
     </div> <!-- end about-content -->
 
     <div class="row about-content about-content--buttons">
@@ -30,5 +29,5 @@
 
     </div> <!-- end about-content buttons -->
 
-   @await Component.InvokeAsync("_ExperienceComponentPartial")
-</section> 
+    @await Component.InvokeAsync("_ExperienceComponentPartial")
+</section>

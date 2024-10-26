@@ -9,9 +9,15 @@ namespace MyPortfolio.Controllers
     public class DefaultController : Controller
     {
         MessageManager messageManager = new MessageManager(new EfMessageDal());
+        AboutManager aboutManager = new AboutManager(new EfAboutDal());
         // GET: DefaultController
         public IActionResult Index()
-        {
+        {            
+            var values = aboutManager.TGetList().FirstOrDefault();
+
+            ViewBag.aboutTitle = values.Title;
+            ViewBag.aboutSubDescription = values.SubDescription;
+            ViewBag.aboutDetails = values.Details;
             
             return View();
         }
