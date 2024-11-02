@@ -15,6 +15,7 @@
                         <th scope="col-sm-3">#</th>
                         <th scope="col-sm-3">Title</th>
                         <th scope="col-sm-3">SubDescription</th>
+                        <th scope="col-sm-3">CvUrl</th>
                         <th scope="col-sm-3">Update</th>
                     </tr>
                     </thead>
@@ -38,7 +39,7 @@
                 </button>
             </div>
             <div class="modal-body bg-default">
-                <form>
+                <form method="post">
                     <div class="form-group">
                         <label for="aboutTitle" class="col-form-label">Title:</label>
                         <input hidden type="text" class="form-control" id="aboutId">
@@ -51,6 +52,16 @@
                     <div class="form-group">
                         <label for="aboutDetails" class="col-form-label">Details:</label>
                         <textarea rows="10" class="form-control" id="aboutDetails"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <!-- Mevcut CV dosyasını embed içinde göster -->
+                        <label>Current CV</label>
+                        <br/>
+                        <a class="btn btn-outline-primary" id="aboutCurrentPdf">Open</a>
+                    </div>
+                    <div class="form-group">
+                        <label for="aboutDetails" class="col-form-label">Upload New Cv:</label>
+                        <input type="file" class="form-control" id="aboutNewCv" accept="application/pdf">
                     </div>
                 </form>
             </div>
@@ -99,7 +110,7 @@
     function refreshTable(){
         // controller tarafı bitti viewda about entity si gösterilmesi kaldı.
         $.ajax({
-            url: "@Url.Action("GetAbout","About")",
+            url: "@Url.Action("GetAbout", "About")",
             type: 'GET',
             success: function (item){
                 var table = $("#aboutTable").DataTable();
@@ -109,6 +120,7 @@
                     item.about.aboutId,
                     item.about.title,
                     item.about.subDescription,
+                    item.about.cvUrl,
                     '<button onclick="openModal(this)" data-id="'+item.about.id+'" class="btn btn-success">Update</button>',
                 ]).draw();
             },
@@ -126,18 +138,25 @@
         var aboutTitle = $("#about-modal #aboutTitle").val();
         var aboutSubDescription = $("#about-modal #aboutSubDescription").val();
         var aboutDetails= $("#about-modal #aboutDetails").val();
+        var aboutNewPdf = $('#about-modal #aboutNewCv')[0].files[0];
         
-        let About = {
-            AboutId : aboutId,
-            Title : aboutTitle,
-            SubDescription : aboutSubDescription,
-            Details : aboutDetails
-        }
+        // inputtan dosyayı al 
+        
+       var formData = new FormData();
+       formData.append('AboutId', aboutId);
+       formData.append('Title', aboutTitle);
+       formData.append('SubDescription', aboutSubDescription);
+       formData.append('Details', aboutDetails);
+       if (aboutNewPdf){
+           formData.append('Cv', aboutNewPdf);
+       }
         
         $.ajax({
             url: "@Url.Action("EditAbout", "About")",
             type: 'POST',
-            data: { 'about' : About},
+            data: formData,
+            contentType: false,
+            processData:false,
             success : function (item){
                 refreshTable();
                 closeModal();
@@ -149,7 +168,6 @@
         })
         
     }
-    
     
     // modal açma fonk
     function openModal(){
@@ -179,6 +197,10 @@
         $("#about-modal #aboutTitle").val(data.title);
         $("#about-modal #aboutSubDescription").val(data.subDescription);
         $("#about-modal #aboutDetails").val(data.details);
+        $("#about-modal #aboutCurrentPdf")
+        .attr('href', data.cvUrl)
+        .attr('target', '_blank')
+        .addClass('btn btn-outline-warning');
     }
     
     

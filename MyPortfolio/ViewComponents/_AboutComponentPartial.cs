@@ -5,7 +5,6 @@ namespace MyPortfolio.ViewComponents;
 
 public class _AboutComponentPartial : ViewComponent
 {
-    MyPortfolioContext context = new MyPortfolioContext();
     
     public IViewComponentResult Invoke()
     {

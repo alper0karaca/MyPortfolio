@@ -30,6 +30,9 @@ namespace DataAccessLayer.Migrations
 
                     MySqlPropertyBuilderExtensions.UseMySqlIdentityColumn(b.Property<int>("AboutId"));
 
+                    b.Property<string>("CvUrl")
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Details")
                         .IsRequired()
                         .HasColumnType("longtext");

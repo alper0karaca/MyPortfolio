@@ -9,9 +9,9 @@ public class MyPortfolioContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         // uzak/server için server= ip adresi gelecek.  ve db şifre girilcek
-        var connectionString = "server=; port=3306; user=alperka4_alper0karaca; password=; database=alperka4_MyPortfolioDb;";
+        //var connectionString = "server=; port=3306; user=alperka4_alper0karaca; password=; database=alperka4_MyPortfolioDb;";
         // local için
-        //var connectionString = "server=localhost; port=3306; user=root; database=MyPortfolioDb;";
+        var connectionString = "server=localhost; port=3306; user=root; database=MyPortfolioDb;";
         
         var serverVersion = new MySqlServerVersion(new Version(8, 0, 21));
         

@@ -30,6 +30,7 @@ namespace MyPortfolio.Controllers
                 Title = value.Title,
                 SubDescription = value.SubDescription,
                 Details = value.Details,
+                CvUrl = value.CvUrl,
             };
 
             return Json(new { Code = HttpStatusCode.OK, about});
@@ -39,8 +40,29 @@ namespace MyPortfolio.Controllers
         
         // about güncellemesi için 
         [HttpPost]
-        public IActionResult EditAbout(About about)
+        public async Task<IActionResult> EditAbout(AboutVM aboutVM)
         {
+            
+            if (aboutVM.Cv != null && aboutVM.Cv.Length > 0 )
+            {
+                // cv için dosya yolu al
+                var directory = Directory.GetCurrentDirectory();
+                var extension = Path.GetExtension(aboutVM.Cv.FileName);
+                var pdfName = Guid.NewGuid() + extension;
+                var savePath = directory + "/wwwroot/files/"+pdfName;
+                var stream = new FileStream(savePath, FileMode.Create);
+                await aboutVM.Cv.CopyToAsync(stream);
+                aboutVM.CvUrl = "/files/"+pdfName;
+            }
+
+            About about = new About()
+            {
+                AboutId = aboutVM.AboutId,
+                Title = aboutVM.Title,
+                SubDescription = aboutVM.SubDescription,
+                Details = aboutVM.Details,
+                CvUrl = aboutVM.CvUrl,
+            };
             
             aboutManager.TUpdate(about);
 
