@@ -25433,6 +25433,14 @@
       "PackagePath": "staticwebassets/lib/line-awesome-1.3.0/svg/zhihu.svg"
     },
     {
+      "Id": "/Users/alperkaraca/RiderProjects/MyPortfolio/MyPortfolio/wwwroot/lib/toastr/toastr.min.css",
+      "PackagePath": "staticwebassets/lib/toastr/toastr.min.css"
+    },
+    {
+      "Id": "/Users/alperkaraca/RiderProjects/MyPortfolio/MyPortfolio/wwwroot/lib/toastr/toastr.min.js",
+      "PackagePath": "staticwebassets/lib/toastr/toastr.min.js"
+    },
+    {
       "Id": "/Users/alperkaraca/RiderProjects/MyPortfolio/MyPortfolio/wwwroot/template/assets/css/maps/style.css.map",
       "PackagePath": "staticwebassets/template/assets/css/maps/style.css.map"
     },
