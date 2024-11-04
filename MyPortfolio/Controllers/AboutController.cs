@@ -40,28 +40,36 @@ namespace MyPortfolio.Controllers
         
         // about güncellemesi için 
         [HttpPost]
-        public async Task<IActionResult> EditAbout(AboutVM aboutVM)
+        public async Task<IActionResult> EditAbout(AboutVM p)
         {
+            var existAbout = aboutManager.TGetById(p.AboutId);
             
-            if (aboutVM.Cv != null && aboutVM.Cv.Length > 0 )
+            if (p.Cv != null && p.Cv.Length > 0 )
             {
                 // cv için dosya yolu al
                 var directory = Directory.GetCurrentDirectory();
-                var extension = Path.GetExtension(aboutVM.Cv.FileName);
+                var extension = Path.GetExtension(p.Cv.FileName);
                 var pdfName = Guid.NewGuid() + extension;
                 var savePath = directory + "/wwwroot/files/"+pdfName;
-                var stream = new FileStream(savePath, FileMode.Create);
-                await aboutVM.Cv.CopyToAsync(stream);
-                aboutVM.CvUrl = "/files/"+pdfName;
+
+                using (var stream = new FileStream(savePath, FileMode.Create))
+                {
+                    await p.Cv.CopyToAsync(stream);
+                }
+                p.CvUrl = "/files/"+pdfName;
+            }
+            else
+            {
+                p.CvUrl = existAbout.CvUrl;
             }
 
             About about = new About()
             {
-                AboutId = aboutVM.AboutId,
-                Title = aboutVM.Title,
-                SubDescription = aboutVM.SubDescription,
-                Details = aboutVM.Details,
-                CvUrl = aboutVM.CvUrl,
+                AboutId = p.AboutId,
+                Title = p.Title,
+                SubDescription = p.SubDescription,
+                Details = p.Details,
+                CvUrl = p.CvUrl,
             };
             
             aboutManager.TUpdate(about);

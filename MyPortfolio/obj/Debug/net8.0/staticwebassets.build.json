@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "WLEap2vQv6yrUrkbtMl9UP0oJrKMpAVxP9qmA1ux9sk=",
+  "Hash": "PLCLVS5vOqXyJO/Qa9CPWPN2N8taVWZHnTilvr+xxeU=",
   "Source": "MyPortfolio",
   "BasePath": "_content/MyPortfolio",
   "Mode": "Default",
@@ -110,25 +110,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/css/site.css"
-    },
-    {
-      "Identity": "/Users/alperkaraca/RiderProjects/MyPortfolio/MyPortfolio/wwwroot/files/Alper-Karaca-CV-EN.pdf",
-      "SourceId": "MyPortfolio",
-      "SourceType": "Discovered",
-      "ContentRoot": "/Users/alperkaraca/RiderProjects/MyPortfolio/MyPortfolio/wwwroot/",
-      "BasePath": "_content/MyPortfolio",
-      "RelativePath": "files/Alper-Karaca-CV-EN.pdf",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/files/Alper-Karaca-CV-EN.pdf"
     },
     {
       "Identity": "/Users/alperkaraca/RiderProjects/MyPortfolio/MyPortfolio/wwwroot/files/alper-profile.jpeg",
@@ -490,25 +471,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/files/project-images/yesilizlerv2.png"
-    },
-    {
-      "Identity": "/Users/alperkaraca/RiderProjects/MyPortfolio/MyPortfolio/wwwroot/files68b69eb6-5615-4188-9fc3-d8d7489eca74.pdf",
-      "SourceId": "MyPortfolio",
-      "SourceType": "Discovered",
-      "ContentRoot": "/Users/alperkaraca/RiderProjects/MyPortfolio/MyPortfolio/wwwroot/",
-      "BasePath": "_content/MyPortfolio",
-      "RelativePath": "files68b69eb6-5615-4188-9fc3-d8d7489eca74.pdf",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/files68b69eb6-5615-4188-9fc3-d8d7489eca74.pdf"
     },
     {
       "Identity": "/Users/alperkaraca/RiderProjects/MyPortfolio/MyPortfolio/wwwroot/js/DataTables/datatables.css",

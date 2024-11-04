@@ -21,10 +21,6 @@
       "PackagePath": "staticwebassets/css/site.css"
     },
     {
-      "Id": "/Users/alperkaraca/RiderProjects/MyPortfolio/MyPortfolio/wwwroot/files/Alper-Karaca-CV-EN.pdf",
-      "PackagePath": "staticwebassets/files/Alper-Karaca-CV-EN.pdf"
-    },
-    {
       "Id": "/Users/alperkaraca/RiderProjects/MyPortfolio/MyPortfolio/wwwroot/files/alper-profile.jpeg",
       "PackagePath": "staticwebassets/files/alper-profile.jpeg"
     },
@@ -99,10 +95,6 @@
     {
       "Id": "/Users/alperkaraca/RiderProjects/MyPortfolio/MyPortfolio/wwwroot/files/project-images/yesilizlerv2.png",
       "PackagePath": "staticwebassets/files/project-images/yesilizlerv2.png"
-    },
-    {
-      "Id": "/Users/alperkaraca/RiderProjects/MyPortfolio/MyPortfolio/wwwroot/files68b69eb6-5615-4188-9fc3-d8d7489eca74.pdf",
-      "PackagePath": "staticwebassets/files68b69eb6-5615-4188-9fc3-d8d7489eca74.pdf"
     },
     {
       "Id": "/Users/alperkaraca/RiderProjects/MyPortfolio/MyPortfolio/wwwroot/js/DataTables/datatables.css",
