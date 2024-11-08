@@ -169,7 +169,7 @@
                 closeModal();
             },
             error: function (error){
-                alert("Unexpected error "+error);
+                toastr.error(error.errorMessage);
             }
             
         })

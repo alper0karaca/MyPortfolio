@@ -44,25 +44,34 @@ namespace MyPortfolio.Controllers
         {
             var existAbout = aboutManager.TGetById(p.AboutId);
 
-            if (p.Cv != null && p.Cv.Length > 0)
+            try
             {
-                // cv için dosya yolu al
-                var directory = Directory.GetCurrentDirectory();
-                var extension = Path.GetExtension(p.Cv.FileName);
-                var pdfName = Guid.NewGuid() + extension;
-                var savePath = directory + "/wwwroot/files/" + pdfName;
-
-                using (var stream = new FileStream(savePath, FileMode.Create))
+                if (p.Cv != null && p.Cv.Length > 0)
                 {
-                    await p.Cv.CopyToAsync(stream);
-                }
+                    // cv için dosya yolu al
+                    var directory = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "files");
+                    var extension = Path.GetExtension(p.Cv.FileName);
+                    var pdfName = Guid.NewGuid() + extension;
+                    var savePath = Path.Combine(directory, pdfName);
 
-                p.CvUrl = "/files/" + pdfName;
+                    using (var stream = new FileStream(savePath, FileMode.Create))
+                    {
+                        await p.Cv.CopyToAsync(stream);
+                    }
+
+                    p.CvUrl = "/files/" + pdfName;
+                }
+                else
+                {
+                    p.CvUrl = existAbout.CvUrl;
+                }
             }
-            else
+            catch (Exception e)
             {
-                p.CvUrl = existAbout.CvUrl;
+                string errorMessage = "PDF Kayıt edeilirken bir hata oluştu :" + e.Message;
+                return Json(new { Code = HttpStatusCode.InternalServerError, errorMessage });
             }
+
 
             About about = new About()
             {
@@ -89,9 +98,9 @@ namespace MyPortfolio.Controllers
             {
                 string message = "File URL is empty or null";
                 //return StatusCode((int)HttpStatusCode.NotFound, message);
-                return Ok(new { Code = HttpStatusCode.InternalServerError,message}) ;
+                return Ok(new { Code = HttpStatusCode.InternalServerError, message });
             }
-            
+
             var directory = Directory.GetCurrentDirectory();
             var filepath = directory + "/wwwroot" + existAbout.CvUrl;
             if (System.IO.File.Exists(filepath))

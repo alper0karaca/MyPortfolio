@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "uw47+0QBuOWA3r60VT9WsG/aIB+ex9kWWmu2l3wfPsk=",
+  "Hash": "KA2/d+x8uvO8MhFx7cGxuee+oo4HSfY7uUSLHCz9j1E=",
   "Source": "MyPortfolio",
   "BasePath": "_content/MyPortfolio",
   "Mode": "Default",
@@ -110,6 +110,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/css/site.css"
+    },
+    {
+      "Identity": "/Users/alperkaraca/RiderProjects/MyPortfolio/MyPortfolio/wwwroot/files/364093d2-f23d-425d-9531-fae9b6b379d3.pdf",
+      "SourceId": "MyPortfolio",
+      "SourceType": "Discovered",
+      "ContentRoot": "/Users/alperkaraca/RiderProjects/MyPortfolio/MyPortfolio/wwwroot/",
+      "BasePath": "_content/MyPortfolio",
+      "RelativePath": "files/364093d2-f23d-425d-9531-fae9b6b379d3.pdf",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/files/364093d2-f23d-425d-9531-fae9b6b379d3.pdf"
     },
     {
       "Identity": "/Users/alperkaraca/RiderProjects/MyPortfolio/MyPortfolio/wwwroot/files/783cb078-8549-41cd-b028-4a8e656b1873.pdf",
