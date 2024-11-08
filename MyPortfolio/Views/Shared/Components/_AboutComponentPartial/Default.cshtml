@@ -1,4 +1,6 @@
-﻿<section id="about" class="s-about target-section">
+﻿@using Entities
+@model About
+<section id="about" class="s-about target-section">
 
     <div class="row narrow section-intro has-bottom-sep">
         <div class="col-full text-center">
@@ -19,9 +21,9 @@
     </div> <!-- end about-content -->
 
     <div class="row about-content about-content--buttons">
-
+        <!-- CV URL i dinamik olarak almamız lazım -->
         <div class="col-six tab-full left">
-            <a href="/files/Alper-Karaca-CV-EN.pdf" download="Alper-Karaca-CV-EN.pdf" class="btn btn--primary full-width">Download My CV</a>
+            <a href="@Model.CvUrl" download="Alper-Karaca-CV.pdf" class="btn btn--primary full-width">Download My CV</a>
         </div>
         <div class="col-six tab-full right">
             <a href="#contact" class="btn full-width">Hire Me Now</a>

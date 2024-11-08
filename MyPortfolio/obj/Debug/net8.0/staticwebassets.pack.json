@@ -21,6 +21,14 @@
       "PackagePath": "staticwebassets/css/site.css"
     },
     {
+      "Id": "/Users/alperkaraca/RiderProjects/MyPortfolio/MyPortfolio/wwwroot/files/783cb078-8549-41cd-b028-4a8e656b1873.pdf",
+      "PackagePath": "staticwebassets/files/783cb078-8549-41cd-b028-4a8e656b1873.pdf"
+    },
+    {
+      "Id": "/Users/alperkaraca/RiderProjects/MyPortfolio/MyPortfolio/wwwroot/files/a8c0ba6c-60b5-4d1c-857c-042df2dc4c3a.pdf",
+      "PackagePath": "staticwebassets/files/a8c0ba6c-60b5-4d1c-857c-042df2dc4c3a.pdf"
+    },
+    {
       "Id": "/Users/alperkaraca/RiderProjects/MyPortfolio/MyPortfolio/wwwroot/files/alper-profile.jpeg",
       "PackagePath": "staticwebassets/files/alper-profile.jpeg"
     },
