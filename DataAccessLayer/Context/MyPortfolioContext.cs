@@ -30,5 +30,6 @@ public class MyPortfolioContext : DbContext
     public DbSet<Testimonial> Testimonials { get; set; } 
     public DbSet<Blog> Blogs { get; set; }
     public DbSet<User> Users { get; set; }
+    public DbSet<UserRole> UserRoles { get; set; }
 
 }
