@@ -1,5 +1,13 @@
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddAuthentication("AdminCookie").AddCookie("AdminCookie",
+    options =>
+    {
+        options.LoginPath = "/Login/Index";
+        options.AccessDeniedPath = "/Login/AccessDenied";
+    });
+
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -18,7 +26,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.MapControllerRoute(
     name: "default",

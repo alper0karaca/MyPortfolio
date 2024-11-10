@@ -3,10 +3,12 @@ using Business.Concretes;
 using DataAccessLayer.Concretes;
 using Entities;
 using Entities.VM;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MyPortfolio.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AboutController : Controller
     {
         private AboutManager aboutManager = new AboutManager(new EfAboutDal());

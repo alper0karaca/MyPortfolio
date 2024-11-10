@@ -21,10 +21,6 @@
       "PackagePath": "staticwebassets/css/site.css"
     },
     {
-      "Id": "/Users/alperkaraca/RiderProjects/MyPortfolio/MyPortfolio/wwwroot/files/364093d2-f23d-425d-9531-fae9b6b379d3.pdf",
-      "PackagePath": "staticwebassets/files/364093d2-f23d-425d-9531-fae9b6b379d3.pdf"
-    },
-    {
       "Id": "/Users/alperkaraca/RiderProjects/MyPortfolio/MyPortfolio/wwwroot/files/783cb078-8549-41cd-b028-4a8e656b1873.pdf",
       "PackagePath": "staticwebassets/files/783cb078-8549-41cd-b028-4a8e656b1873.pdf"
     },
@@ -127,6 +123,10 @@
     {
       "Id": "/Users/alperkaraca/RiderProjects/MyPortfolio/MyPortfolio/wwwroot/js/site.js",
       "PackagePath": "staticwebassets/js/site.js"
+    },
+    {
+      "Id": "/Users/alperkaraca/RiderProjects/MyPortfolio/MyPortfolio/wwwroot/lib/bootstrap-4.0.0/bootstrap.min.css",
+      "PackagePath": "staticwebassets/lib/bootstrap-4.0.0/bootstrap.min.css"
     },
     {
       "Id": "/Users/alperkaraca/RiderProjects/MyPortfolio/MyPortfolio/wwwroot/lib/bootstrap-5.3.3-dist/css/bootstrap-grid.css",

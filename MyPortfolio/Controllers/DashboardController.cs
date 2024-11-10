@@ -1,8 +1,10 @@
 using DataAccessLayer.Context;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MyPortfolio.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class DashboardController : Controller
     {
         MyPortfolioContext _context = new MyPortfolioContext();

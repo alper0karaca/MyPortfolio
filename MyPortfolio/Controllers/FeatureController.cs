@@ -3,12 +3,15 @@ using Business.Concretes;
 using DataAccessLayer.Concretes;
 using Entities;
 using Entities.VM;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MyPortfolio.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class FeatureController : Controller
     {
+        
         FeatureManager featureManager = new FeatureManager(new EfFeatureDal());
         
         public ActionResult Index()
